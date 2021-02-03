@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Media } from 'reactstrap';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,
-  CardTitle } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import DishDetail from './DishdetailComponent';
 
 class Menu extends Component {
   constructor(props) {
@@ -14,15 +13,17 @@ class Menu extends Component {
 
 onDishSelect(dish) {
     this.setState({ selectedDish: dish});
+    console.log("Dish Selected : " + dish.name);
 }
 
+/*
 renderDish(dish) {
     if (dish != null)
         return(
             <Card>
                 <CardImg top src={dish.image} alt={dish.name} />
                 <CardBody>
-                  <CardTitle>{dish.name}</CardTitle>
+                  <CardTitle><b>{dish.name}</b></CardTitle>
                   <CardText>{dish.description}</CardText>
                 </CardBody>
             </Card>
@@ -32,16 +33,16 @@ renderDish(dish) {
             <div></div>
         );
 }
+*/
     render() {
       const menu = this.props.dishes.map((dish) => {
           return (
             <div  className="col-12 col-md-5 m-1">
-              <Card key={dish.id}
-                onClick={() => this.onDishSelect(dish)}>
-                <CardImg width="10%" src={dish.image} alt={dish.name} />
-                <CardImgOverlay>
+              <Card key={dish.id} onClick={() => this.onDishSelect(dish)}>
+                    <CardImg width="10%" src={dish.image} alt={dish.name} />
+                    <CardImgOverlay>
                     <CardTitle>{dish.name}</CardTitle>
-                </CardImgOverlay>
+                    </CardImgOverlay>
               </Card>
             </div>
           );
@@ -52,13 +53,9 @@ renderDish(dish) {
             <div className="row">
                 {menu}
             </div>
-            <div className="row">
-              <div  className="col-12 col-md-5 m-1">
-                {this.renderDish(this.state.selectedDish)}
-              </div>
-            </div>
+            <DishDetail selectedDish={this.state.selectedDish}/> 
         </div>
-    );
+      );
     }
 }
 
